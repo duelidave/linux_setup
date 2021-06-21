@@ -1,21 +1,21 @@
-======
+===
 # USAGE
 
-##nvim
+## nvim
 ```
 ln -s ~/dev/linux_setup/nvim/init.vim init.vim
 ln -s ~/dev/linux_setup/nvim/vim-plug/plugins.vim plugins.vim
 ```
 
-##vim
+## vim
 
-##tmux
+## tmux
 ```
 ln -s ~/dev/linux_setup/tmux/.tmux.conf .tmux.conf
 ```
 
-##zsh
+## zsh
 ```
 ln -s ~/dev/linux_setup/zsh/.zshrc .zshrc
 ```
-======
+===
