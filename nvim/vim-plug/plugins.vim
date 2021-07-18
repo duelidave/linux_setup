@@ -6,10 +6,12 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
+	Plug 'nvim-lua/popup.nvim'
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'nvim-telescope/telescope.nvim'
     Plug 'gruvbox-community/gruvbox'
     Plug 'vim-airline/vim-airline'
     Plug 'tpope/vim-surround'
-    Plug 'scrooloose/nerdtree'
     Plug 'ycm-core/YouCompleteMe'
     Plug 'frazrepo/vim-rainbow'
     Plug 'jiangmiao/auto-pairs'

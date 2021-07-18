@@ -1,0 +1,7 @@
+1: auf host nichts machen. Passiert alles in VM
+2: in VM: 
+sudo cryptsetup luksOpen /dev/vdb davedata_crypto
+3: in VM
+sudo mount /dev/mapper/davedata_crypto ~/data
+
+fertig.

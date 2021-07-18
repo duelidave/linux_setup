@@ -1,13 +1,17 @@
 source $HOME/.config/nvim/vim-plug/plugins.vim
 
-let mapleadeour = " "
+let mapleader = " "
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
 
 syntax on
-set tabstop=4 softtabstop=4
+set tabstop=4 
+set softtabstop=4
 set shiftwidth=4
+set smarttab
 set expandtab
-set smartindent
+set autoindent
 
+set hidden
 set paste
 set exrc
 set guicursor=
@@ -29,3 +33,5 @@ set cmdheight=2
 set termguicolors
 
 colorscheme gruvbox
+
+map <Leader>F :Files!<Enter>
