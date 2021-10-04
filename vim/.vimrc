@@ -10,6 +10,7 @@ set shiftwidth=4
 set expandtab
 set smartindent
 
+set clipboard=unnamedplus
 set exrc
 set guicursor=
 set relativenumber
