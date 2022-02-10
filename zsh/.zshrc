@@ -71,6 +71,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+source ~/.profile
 
 # User configuration
 
