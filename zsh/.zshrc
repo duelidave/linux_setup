@@ -69,14 +69,13 @@ plugins=(
   dirhistory
   sudo
   pyenv
-  dirhistory
 )
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
 # ZSH autosuggestion 
 # git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
