@@ -1,12 +1,10 @@
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completi
-
+[[ -n $TMUX ]] && export TERM="xterm-256color"
+#zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/dmueller/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -71,15 +69,14 @@ plugins=(
   dirhistory
   sudo
   pyenv
-  zsh-nvm
-  colors
-  autoenv
 )
 
-source $ZSH/oh-my-zsh.sh
-source ~/.profile
-
 # User configuration
+source $ZSH/oh-my-zsh.sh
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -108,7 +105,12 @@ source ~/.profile
 alias reload=". ~/.zshrc"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-autoload -U +X bashcompinit && bashcompinit
-
 complete -o nospace -C /usr/bin/terraform terraform
+#zprof
+
+# Created by `pipx` on 2022-07-22 09:01:12
+# export PATH="$PATH:/home/muellerda/.local/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
