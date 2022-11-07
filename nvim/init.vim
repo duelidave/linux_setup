@@ -8,21 +8,21 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-    Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
-    Plug 'nvim-tree/nvim-tree.lua'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-    Plug 'gennaro-tedesco/nvim-peekup'
-    Plug 'tpope/vim-sensible'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'gruvbox-community/gruvbox'
-	Plug 'itchyny/lightline.vim'        " Statuszeile mit mehr Informationen
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'gennaro-tedesco/nvim-peekup'
+Plug 'tpope/vim-sensible'
+Plug 'gruvbox-community/gruvbox'
+Plug 'itchyny/lightline.vim'        " Statuszeile mit mehr Informationen
 call plug#end()
 
 " Automatisch fehlende Plugins installieren
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | source $MYVIMRC
-\| endif
+            \| PlugInstall --sync | source $MYVIMRC
+            \| endif
 
 let mapleader = " "
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
@@ -75,7 +75,39 @@ set nobackup        " Backfile wird sofort wirder gelöscht, da Restores über U
 set hidden          " Wechsel von Buffern auch, wenn File nicht gespeichert
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+lua << EOF
+require('telescope').load_extension('fzf')
+EOF
+
+" nvim tree
+nnoremap <leader>tt <cmd>NvimTreeToggle<cr>
+nnoremap <leader>tr <cmd>NvimTreeRefresh<cr>
+nnoremap <leader>tf <cmd>NvimTreeFindFile<cr>
+
+lua << EOF
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+require("nvim-tree").setup({
+sort_by = "case_sensitive",
+view = {
+    adaptive_size = true,
+    mappings = {
+        list = {
+            { key = "u", action = "dir_up" },
+            },
+        },
+    },
+renderer = {
+    group_empty = true,
+    },
+filters = {
+    dotfiles = true,
+    },
+})
+EOF
