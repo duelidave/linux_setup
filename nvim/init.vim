@@ -1,5 +1,5 @@
 " Python3 config
-let g:python3_host_prog = '/home/muellerda/.pyenv/shims/python3'
+le g:python3_host_prog = '~/.pyenv/shims/python'
 
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -8,7 +8,12 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
+    Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
+    Plug 'nvim-tree/nvim-tree.lua'
     Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+    Plug 'gennaro-tedesco/nvim-peekup'
+    Plug 'tpope/vim-sensible'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'gruvbox-community/gruvbox'
 	Plug 'itchyny/lightline.vim'        " Statuszeile mit mehr Informationen
@@ -40,7 +45,7 @@ set incsearch
 set laststatus=2    " Statuszeile immer anzeigen
 set number
 set nu
-set nohlsearch
+"set nohlsearch
 set noerrorbells
 set nowrap
 set noswapfile
