@@ -3,8 +3,7 @@
 
 ## nvim
 ```
-ln -s ~/dev/linux_setup/nvim/init.vim init.vim
-ln -s ~/dev/linux_setup/nvim/vim-plug/plugins.vim plugins.vim
+ln -s ~/dev/linux_setup/nvim/init.vim ~/.config/nvim/init.vim
 ```
 
 ## vim
