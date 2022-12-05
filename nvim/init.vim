@@ -18,6 +18,7 @@ Plug 'gennaro-tedesco/nvim-peekup'
 Plug 'tpope/vim-sensible'
 Plug 'gruvbox-community/gruvbox'
 Plug 'itchyny/lightline.vim'        " Statuszeile mit mehr Informationen
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 " Automatisch fehlende Plugins installieren
