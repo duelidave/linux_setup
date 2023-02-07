@@ -86,6 +86,8 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " buffer switching
 nnoremap <leader>bn <cmd>bnext<cr>
 nnoremap <leader>bp <cmd>bprevious<cr>
+nnoremap <leader>bd <cmd>bd<cr>
+nnoremap <leader>bl <cmd>ls<cr>
 
 lua << EOF
 require('telescope').load_extension('fzf')
