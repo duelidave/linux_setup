@@ -18,4 +18,9 @@ ln -s ~/dev/linux_setup/tmux/.tmux.conf .tmux.conf
 ```
 ln -s ~/dev/linux_setup/zsh/.zshrc .zshrc
 ```
+
+## snap
+```
+sudo snap set system refresh.retain=2
+```
 ===
