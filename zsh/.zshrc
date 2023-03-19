@@ -78,7 +78,7 @@ plugins=(
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
-# ZSH autosuggestion 
+# ZSH autosuggestion
 # git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 # source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -111,6 +111,8 @@ eval "$(pyenv init -)"
 #
 # Example aliases
 alias reload=". ~/.zshrc"
+alias vi="nvim"
+alias vim="nvim"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 complete -o nospace -C /usr/bin/terraform terraform
@@ -118,6 +120,7 @@ complete -o nospace -C /usr/bin/terraform terraform
 
 # Created by `pipx` on 2022-07-22 09:01:12
 # export PATH="$PATH:/home/muellerda/.local/bin"
+export PATH=$PATH:/opt/gradle/gradle-8.0.2/bin
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
