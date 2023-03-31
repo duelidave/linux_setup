@@ -83,7 +83,8 @@ return require('packer').startup(function(use)
         end
     }
     use 'nvim-lua/plenary.nvim'
-    use 'gruvbox-community/gruvbox'
+    -- colorschema
+    use 'crusoexia/vim-monokai'
     use 'itchyny/lightline.vim'
     use 'christoomey/vim-tmux-navigator'
     use 'tpope/vim-sensible'

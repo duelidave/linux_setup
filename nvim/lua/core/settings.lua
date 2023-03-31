@@ -30,9 +30,9 @@ set relativenumber
 set scrolloff=8
 set signcolumn=yes
 set smartcase
-set termguicolors
 set undofile
 set nobackup
 set hidden
-colorscheme gruvbox
+set termguicolors
+colorscheme monokai
 ]])
