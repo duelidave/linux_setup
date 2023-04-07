@@ -6,14 +6,14 @@ augroup end
 ]])
 
 local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+    local fn = vim.fn
+    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
 end
 
 local packer_bootstrap = ensure_packer()
@@ -24,7 +24,7 @@ return require('packer').startup(function(use)
     use {
         'folke/which-key.nvim',
         config = function()
-            require("which-key").setup()
+            require('which-key').setup()
         end
     }
     use {
@@ -32,9 +32,14 @@ return require('packer').startup(function(use)
         config = function() require('config/wilder') end,
     }
     -- mason
-    use "williamboman/mason.nvim"
-    use "williamboman/mason-lspconfig.nvim"
-    use 'neovim/nvim-lspconfig'
+    use {
+        'neovim/nvim-lspconfig',
+        requires = {
+            use 'williamboman/mason.nvim',
+            use 'williamboman/mason-lspconfig.nvim',
+            use 'j-hui/fidget.nvim'
+        }
+    }
     use 'mhartington/formatter.nvim'
     use 'jose-elias-alvarez/null-ls.nvim'
     use 'mfussenegger/nvim-dap'
@@ -77,7 +82,7 @@ return require('packer').startup(function(use)
     use {
         'simrat39/symbols-outline.nvim',
         config = function()
-            require("symbols-outline").setup {
+            require('symbols-outline').setup {
                 auto_close = true,
             }
         end
@@ -96,8 +101,11 @@ return require('packer').startup(function(use)
     use 'tpope/vim-unimpaired'
     use 'tyru/open-browser.vim'
     use 'andymass/vim-matchup'
-    use 'vim-test/vim-test'
     use 'weirongxu/plantuml-previewer.vim'
+    use {
+        'windwp/nvim-autopairs',
+        config = function() require('nvim-autopairs').setup {} end
+    }
 
     if packer_bootstrap then
         require('packer').sync()
