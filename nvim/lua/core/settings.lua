@@ -2,13 +2,12 @@ local o = vim.o
 local wo = vim.wo
 local bo = vim.bo
 
-o.mapleader = " "
 o.tabstop=4
 o.softtabstop=4
 o.shiftwidth=4
-o.cmdheight=2
-o.laststatus=2
-o.undodir='~/.nvim/undodir'
+o.cmdheight=1
+o.laststatus=1
+-- o.undodir='~/.nvim/undodir'
 
 vim.cmd([[
 set smarttab
@@ -34,5 +33,4 @@ set undofile
 set nobackup
 set hidden
 set termguicolors
-colorscheme monokai
 ]])
