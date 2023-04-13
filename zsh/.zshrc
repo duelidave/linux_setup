@@ -74,7 +74,7 @@ eval "$(pyenv init -)"
 alias reload=". ~/.zshrc"
 alias vi="nvim"
 alias vim="nvim"
-export PATH=$PATH:/opt/gradle/gradle-8.0.2/bin
+export PATH=$PATH:/opt/gradle/gradle-8.0.2/bin:/home/dmueller/dev/applications/stylua-linux-x86_64/
 
 # configure node version manager
 export NVM_DIR=~/.nvm
