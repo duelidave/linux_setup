@@ -2,10 +2,18 @@ require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
 		"lua_ls",
+		"tsserver",
+		"gopls"
 	},
 })
 
 require("mason-lspconfig").setup_handlers({
+	["tsserver"] = function()
+		require("lspconfig").tsserver.setup({})
+	end,
+	["gopls"] = function()
+		require("lspconfig").gopls.setup({})
+	end,
 	["lua_ls"] = function()
 		require("lspconfig").lua_ls.setup({
 			settings = {

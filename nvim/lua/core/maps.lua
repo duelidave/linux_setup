@@ -23,6 +23,15 @@ vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist)
 
+-- refactoring
+-- remap to open the Telescope refactoring menu in visual mode
+vim.api.nvim_set_keymap(
+	"v",
+	"<leader>rr",
+	"<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+	{ noremap = true }
+)
+
 -- buffers
 vim.keymap.set('n','<leader>bn', ':bnext<cr>', {desc = "next buffer"})
 vim.keymap.set('n','<leader>bp', ':bprevious<cr>', {desc = "prev buffer"})

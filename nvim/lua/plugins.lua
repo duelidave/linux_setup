@@ -73,7 +73,11 @@ return require("packer").startup(function(use)
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()
 		end,
+		config = function()
+			require("config.nvim-treesitter")
+		end
 	})
+
 	use({
 		"windwp/nvim-autopairs",
 		config = function()
@@ -111,6 +115,17 @@ return require("packer").startup(function(use)
 		},
 	})
 
+	use {
+		'akinsho/flutter-tools.nvim',
+		requires = {
+			'nvim-lua/plenary.nvim',
+			'stevearc/dressing.nvim', -- optional for vim.ui.select
+		},
+		config = function()
+			require("flutter-tools").setup {} -- use defaults
+		end
+	}
+
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		config = function()
@@ -120,13 +135,21 @@ return require("packer").startup(function(use)
 
 	use({
 		"hrsh7th/nvim-cmp",
-		requires = { "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-nvim-lsp-signature-help", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
+		requires = { "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-nvim-lsp-signature-help", "L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip" },
 		config = function()
 			require("config/nvim-cmp")
 		end,
 	})
 
-	use({"mfussenegger/nvim-jdtls"})
+	use {
+		"ThePrimeagen/refactoring.nvim",
+		config = function()
+			require('refactoring').setup({})
+		end
+	}
+
+	use({ "mfussenegger/nvim-jdtls" })
 
 	---------------------------
 	if packer_bootstrap then
