@@ -7,15 +7,34 @@ require("mason-lspconfig").setup({
 	},
 })
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities() --nvim-cmp
 require("mason-lspconfig").setup_handlers({
 	["tsserver"] = function()
-		require("lspconfig").tsserver.setup({})
+		require("lspconfig").tsserver.setup({
+			capabilities = capabilities,
+		})
 	end,
 	["gopls"] = function()
-		require("lspconfig").gopls.setup({})
+		require("lspconfig").gopls.setup({
+			capabilities = capabilities,
+			settings = {
+				gopls = {
+					experimentalPostfixCompletions = true,
+					analyses = {
+						unusedparams = true,
+						shadow = true,
+					},
+					staticcheck = true,
+				},
+			},
+			init_options = {
+				usePlaceholders = true,
+			}
+		})
 	end,
 	["lua_ls"] = function()
 		require("lspconfig").lua_ls.setup({
+			capabilities = capabilities,
 			settings = {
 				Lua = {
 					diagnostics = {

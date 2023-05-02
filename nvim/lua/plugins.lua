@@ -114,6 +114,12 @@ return require("packer").startup(function(use)
 			"folke/neodev.nvim",
 		},
 	})
+	use({
+		'onsails/lspkind.nvim',
+		config = function()
+			require('lspkind')
+		end
+	})
 
 	use {
 		'akinsho/flutter-tools.nvim',
@@ -133,10 +139,39 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	--Copilot
+	use {
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		module = "copilot",
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+		end,
+	}
+	use {
+		"zbirenbaum/copilot-cmp",
+		module = "copilot_cmp",
+		after = { "copilot.lua", "nvim-cmp" },
+		config = function()
+			require("copilot_cmp").setup()
+		end
+	}
+
 	use({
 		"hrsh7th/nvim-cmp",
-		requires = { "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-nvim-lsp-signature-help", "L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip" },
+		requires = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+			"tzachar/cmp-fuzzy-buffer",
+			"tzachar/fuzzy.nvim",
+			"petertriho/cmp-git"
+		},
 		config = function()
 			require("config/nvim-cmp")
 		end,

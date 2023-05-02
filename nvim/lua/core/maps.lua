@@ -57,3 +57,12 @@ require("which-key").register({
 
 -- nvim-dap
 
+-- copilot
+-- cp = require("copilot.panel")
+-- cs = require("copilot.suggestion")
+
+
+-- vim.keymap.set('i','<C-P>', cs.open({"right", 0.4}), {desc = "open Copilot panel"})
+-- vim.keymap.set('i','<leader>bn', ':bnext<cr>', {desc = "next buffer"})
+-- vim.keymap.set('i','<leader>bn', ':bnext<cr>', {desc = "next buffer"})
+-- vim.keymap.set('i','<leader>bn', ':bnext<cr>', {desc = "next buffer"})
