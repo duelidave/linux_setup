@@ -46,6 +46,7 @@ source $ZSH/oh-my-zsh.sh
 bindkey '^ ' autosuggest-accept
 
 export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
@@ -74,7 +75,7 @@ eval "$(pyenv init -)"
 alias reload=". ~/.zshrc"
 alias vi="nvim"
 alias vim="nvim"
-export PATH=$PATH:/opt/gradle/gradle-8.0.2/bin:/home/dmueller/dev/applications/stylua-linux-x86_64/
+export PATH=$PATH:/opt/gradle/gradle-8.0.2/bin:/home/dmueller/dev/applications/stylua-linux-x86_64/:/opt/nvim/
 
 # configure node version manager
 export NVM_DIR=~/.nvm
@@ -83,3 +84,7 @@ alias node='unalias node ; unalias npm ; nvm use default ; node $@'
 alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Created by `pipx` on 2024-03-12 09:37:38
+export PATH="$PATH:/home/david/.local/bin"

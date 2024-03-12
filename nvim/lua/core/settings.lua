@@ -33,4 +33,5 @@ set undofile
 set nobackup
 set hidden
 set termguicolors
+colorscheme melange
 ]])

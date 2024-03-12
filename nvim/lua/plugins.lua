@@ -18,22 +18,13 @@ return require("packer").startup(function(use)
 	use("crusoexia/vim-monokai")
 	use("tpope/vim-sleuth")
 	use("tpope/vim-surround")
-	use({
-		"navarasu/onedark.nvim",
-		config = function()
-			vim.cmd.colorscheme("onedark")
-			require("onedark").setup({
-				style = "darker",
-			})
-			require("onedark").load()
-		end,
-	})
+	use("savq/melange-nvim")
 	use({
 		"nvim-lualine/lualine.nvim",
 		opts = {
 			options = {
 				icons_enabled = false,
-				theme = "onedark",
+				theme = "nightfly",
 				componen_separators = "|",
 				section_separators = "",
 			},
@@ -58,7 +49,7 @@ return require("packer").startup(function(use)
 	use({ "nvim-telescope/telescope-ui-select.nvim" })
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.1",
+		tag = "0.1.4",
 		requires = { { "nvim-lua/plenary.nvim" } },
 		config = function()
 			require("config/telescope")
