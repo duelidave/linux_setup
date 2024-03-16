@@ -4,6 +4,13 @@
 ## nvim
 ```
 ln -s $(pwd)/nvim/ ~/.config/nvim
+
+comment:
+require('mymason')
+require('core/maps')
+colorscheme melange
+
+git config --global core.editor "vim"
 ```
 
 ## tmux
