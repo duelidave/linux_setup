@@ -11,11 +11,23 @@ bindkey "\e[3~" delete-char
 # Home- und End-Keys.
 bindkey '\e[1~' beginning-of-line
 bindkey '\e[4~' end-of-line
+bindkey "^k" kill-line
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="half-life"
+hostname=$(hostname)
+case $hostname in
+    nas)
+        ZSH_THEME="theme_for_nas"
+        ;;
+    saturn)
+        ZSH_THEME="theme_for_saturn"
+        ;;
+    *)
+        ZSH_THEME="half-life"
+        ;;
+esac
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -75,7 +87,7 @@ eval "$(pyenv init -)"
 alias reload=". ~/.zshrc"
 alias vi="nvim"
 alias vim="nvim"
-export PATH=$PATH:/opt/gradle/gradle-8.0.2/bin:/home/dmueller/dev/applications/stylua-linux-x86_64/:/opt/nvim/
+export PATH=$PATH:/opt/gradle/gradle-8.0.2/bin:~/dev/applications/stylua-linux-x86_64/:~/.local/bin:~/dev/applications/bin/stash-linux:/opt/nvim:/opt/nvim/bin
 
 # configure node version manager
 export NVM_DIR=~/.nvm
