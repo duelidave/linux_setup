@@ -3,8 +3,7 @@
 
 ## nvim
 ```
-ln -s ~/dev/linux_setup/nvim/init.vim ~/.config/nvim/init.vim
-ln -s ~/dev/linux_setup/nvim/plug-config/coc.vim ~/.config/nvim/plug-config/coc.vim
+ln -s $(pwd)/nvim/ ~/.config/nvim
 ```
 
 ## tmux
