@@ -20,6 +20,7 @@ hostname=$(hostname)
 case $hostname in
     nas)
         ZSH_THEME="crunch"
+        export PATH=/usr/local/bin:$PATH
         ;;
     saturn)
         ZSH_THEME="cloud"
