@@ -19,10 +19,11 @@ bindkey "^k" kill-line
 hostname=$(hostname)
 case $hostname in
     nas)
-        ZSH_THEME="theme_for_nas"
+        ZSH_THEME="crunch"
+        export PATH=/usr/local/bin:$PATH
         ;;
     saturn)
-        ZSH_THEME="theme_for_saturn"
+        ZSH_THEME="cloud"
         ;;
     *)
         ZSH_THEME="half-life"
