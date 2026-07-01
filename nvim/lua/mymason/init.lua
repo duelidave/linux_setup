@@ -1,59 +1,56 @@
 require("mason").setup()
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 require("mason-lspconfig").setup({
 	ensure_installed = {
 		"lua_ls",
-		"tsserver",
-		"gopls"
+		"ts_ls",
+		"gopls",
+	},
+	handlers = {
+		["ts_ls"] = function()
+			require("lspconfig").ts_ls.setup({
+				capabilities = capabilities,
+			})
+		end,
+		["gopls"] = function()
+			require("lspconfig").gopls.setup({
+				capabilities = capabilities,
+				settings = {
+					gopls = {
+						experimentalPostfixCompletions = true,
+						analyses = {
+							unusedparams = true,
+							shadow = true,
+						},
+						staticcheck = true,
+					},
+				},
+				init_options = {
+					usePlaceholders = true,
+				},
+			})
+		end,
+		["lua_ls"] = function()
+			require("lspconfig").lua_ls.setup({
+				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+				},
+			})
+		end,
 	},
 })
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities() --nvim-cmp
-require("mason-lspconfig").setup_handlers({
-	["tsserver"] = function()
-		require("lspconfig").tsserver.setup({
-			capabilities = capabilities,
-		})
-	end,
-	["gopls"] = function()
-		require("lspconfig").gopls.setup({
-			capabilities = capabilities,
-			settings = {
-				gopls = {
-					experimentalPostfixCompletions = true,
-					analyses = {
-						unusedparams = true,
-						shadow = true,
-					},
-					staticcheck = true,
-				},
-			},
-			init_options = {
-				usePlaceholders = true,
-			}
-		})
-	end,
-	["lua_ls"] = function()
-		require("lspconfig").lua_ls.setup({
-			capabilities = capabilities,
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" },
-					},
-				},
-			},
-		})
-	end,
-})
-
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
 		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-		-- Buffer local mappings.
-		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local opts = { buffer = ev.buf }
 		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -76,11 +73,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local null_ls = require("null-ls")
-
 null_ls.setup({
 	sources = {
 		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.diagnostics.eslint,
 		null_ls.builtins.completion.spell,
 	},
 })

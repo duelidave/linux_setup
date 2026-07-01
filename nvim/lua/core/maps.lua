@@ -1,68 +1,49 @@
 -- maps.lua
 vim.keymap.set('n', '<Space>', '', {})
-vim.g.mapleader = ' '  -- 'vim.g' sets global variables
+vim.g.mapleader = ' '
 
--- telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {desc = "[F]ind [F]iles"})
-vim.keymap.set('n', '<leader>fe', builtin.oldfiles, {desc = "[F]ind recently opened fil[e]s"})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {desc = "[F]ind [G]rep"})
-vim.keymap.set('n', '<leader>fw', builtin.grep_string, {desc = "[F]ind [W]ord"})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {desc = "[F]ind [B]uffers"})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {desc = "[F]ind [H]elp tags"})
-require("which-key").register({
-  f = {
-    name = "telescope",
-  },
-}, { prefix = "<leader>" })
+-- telescope (lazy-geladen: Plugin wird erst beim ersten Aufruf benötigt)
+vim.keymap.set('n', '<leader>ff', function() require('telescope.builtin').find_files() end,  { desc = "[F]ind [F]iles" })
+vim.keymap.set('n', '<leader>fe', function() require('telescope.builtin').oldfiles() end,    { desc = "[F]ind recently opened fil[e]s" })
+vim.keymap.set('n', '<leader>fg', function() require('telescope.builtin').live_grep() end,   { desc = "[F]ind [G]rep" })
+vim.keymap.set('n', '<leader>fw', function() require('telescope.builtin').grep_string() end, { desc = "[F]ind [W]ord" })
+vim.keymap.set('n', '<leader>fb', function() require('telescope.builtin').buffers() end,     { desc = "[F]ind [B]uffers" })
+vim.keymap.set('n', '<leader>fh', function() require('telescope.builtin').help_tags() end,   { desc = "[F]ind [H]elp tags" })
 
--- LSP
--- Global mappings.
+-- LSP Diagnostics
 vim.keymap.set("n", "<leader>da", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist)
 
--- refactoring
--- remap to open the Telescope refactoring menu in visual mode
+-- Refactoring (Telescope-Extension)
 vim.api.nvim_set_keymap(
-	"v",
-	"<leader>rr",
-	"<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
-	{ noremap = true }
+    "v",
+    "<leader>rr",
+    "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+    { noremap = true }
 )
 
--- buffers
-vim.keymap.set('n','<leader>bn', ':bnext<cr>', {desc = "next buffer"})
-vim.keymap.set('n','<leader>bp', ':bprevious<cr>', {desc = "prev buffer"})
-vim.keymap.set('n','<leader>bd', ':bd<cr>', {desc = "delete buffer"})
-vim.keymap.set('n','<leader>bl', ':ls<cr>', {desc = "list buffers"})
-require("which-key").register({
-  b = {
-    name = "buffers",
-  },
-}, { prefix = "<leader>" })
+-- Buffer-Navigation
+vim.keymap.set('n', '<leader>bn', ':bnext<cr>',     { desc = "next buffer" })
+vim.keymap.set('n', '<leader>bp', ':bprevious<cr>', { desc = "prev buffer" })
+vim.keymap.set('n', '<leader>bd', ':bd<cr>',        { desc = "delete buffer" })
+vim.keymap.set('n', '<leader>bl', ':ls<cr>',        { desc = "list buffers" })
 
--- nvim-tree
-vim.keymap.set('n','<leader>tt', ':NvimTreeToggle<cr>', {desc = "[T]ree [T]oggle"})
-vim.keymap.set('n','<leader>tf', ':NvimTreeFindFileToggle<cr>', {desc = "[T]ree [F]ind toggle"})
-require("which-key").register({
-  t = {
-    name = "tree",
-  }
-}, { prefix = "<leader>" })
--- trouble
+-- Dateibaum
+vim.keymap.set('n', '<leader>tt', ':NvimTreeToggle<cr>',         { desc = "[T]ree [T]oggle" })
+vim.keymap.set('n', '<leader>tf', ':NvimTreeFindFileToggle<cr>', { desc = "[T]ree [F]ind toggle" })
 
--- vim-test
-
--- nvim-dap
-
--- copilot
--- cp = require("copilot.panel")
--- cs = require("copilot.suggestion")
-
-
--- vim.keymap.set('i','<C-P>', cs.open({"right", 0.4}), {desc = "open Copilot panel"})
--- vim.keymap.set('i','<leader>bn', ':bnext<cr>', {desc = "next buffer"})
--- vim.keymap.set('i','<leader>bn', ':bnext<cr>', {desc = "next buffer"})
--- vim.keymap.set('i','<leader>bn', ':bnext<cr>', {desc = "next buffer"})
+-- which-key Gruppen — erst registrieren wenn Plugin bereit ist
+vim.api.nvim_create_autocmd("User", {
+    pattern = "VeryLazy",
+    callback = function()
+        local ok, wk = pcall(require, "which-key")
+        if not ok then return end
+        wk.add({
+            { "<leader>f", group = "telescope" },
+            { "<leader>b", group = "buffers" },
+            { "<leader>t", group = "tree" },
+        })
+    end,
+})

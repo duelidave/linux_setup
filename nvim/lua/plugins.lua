@@ -1,185 +1,170 @@
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
-end
+return {
+    -- Grundlegende Abhängigkeiten
+    { "nvim-lua/plenary.nvim",                 lazy = false },
+    { "christoomey/vim-tmux-navigator" },
+    { "bronson/vim-visual-star-search" },
+    { "crusoexia/vim-monokai" },
+    { "tpope/vim-sleuth" },
+    { "tpope/vim-surround" },
 
-local packer_bootstrap = ensure_packer()
-return require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
-	use("nvim-lua/plenary.nvim")
-	use("christoomey/vim-tmux-navigator")
-	use("bronson/vim-visual-star-search")
-	use("crusoexia/vim-monokai")
-	use("tpope/vim-sleuth")
-	use("tpope/vim-surround")
-	use("savq/melange-nvim")
-	use({
-		"nvim-lualine/lualine.nvim",
-		opts = {
-			options = {
-				icons_enabled = false,
-				theme = "nightfly",
-				componen_separators = "|",
-				section_separators = "",
-			},
-		},
-	})
-	use({
-		"folke/which-key.nvim",
-		config = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-			require("which-key").setup({})
-		end,
-	})
-	use({
-		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
-	})
+    -- Colorscheme — eagerly mit hoher Priorität laden
+    {
+        "savq/melange-nvim",
+        priority = 1000,
+        lazy = false,
+        config = function()
+            vim.cmd.colorscheme("melange")
+        end,
+    },
 
-	-- telescope
-	use({ "nvim-telescope/telescope-ui-select.nvim" })
-	use({
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.4",
-		requires = { { "nvim-lua/plenary.nvim" } },
-		config = function()
-			require("config/telescope")
-		end,
-	})
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+    -- Statuslinie
+    {
+        "nvim-lualine/lualine.nvim",
+        opts = {
+            options = {
+                icons_enabled = true,
+                theme = "nightfly",
+                component_separators = "|",
+                section_separators = "",
+            },
+        },
+    },
 
-	-- treesitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-			ts_update()
-		end,
-		config = function()
-			require("config.nvim-treesitter")
-		end
-	})
+    -- Which-key
+    {
+        "folke/which-key.nvim",
+        config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+            require("which-key").setup({})
+        end,
+    },
 
-	use({
-		"windwp/nvim-autopairs",
-		config = function()
-			require("nvim-autopairs").setup({})
-		end,
-	})
+    -- Kommentare
+    {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end,
+    },
 
-	-- buffer
-	use({
-		"akinsho/bufferline.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
-		config = function()
-			require("config/bufferline")
-		end,
-		event = "BufWinEnter",
-	})
+    -- Telescope
+    { "nvim-telescope/telescope-ui-select.nvim" },
+    {
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.4",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("config/telescope")
+        end,
+    },
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
-	-- nvim-tree
-	use({
-		"nvim-tree/nvim-tree.lua",
-		requires = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("config/nvimtree")
-		end,
-	})
+    -- Treesitter (commit vor nvim-0.10-Pflicht)
+    {
+        "nvim-treesitter/nvim-treesitter",
+        commit = "v0.9.2",
+        build = ":TSUpdate",
+        config = function()
+            require("config.nvim-treesitter")
+        end,
+    },
 
-	-- LSP
-	use({
-		"neovim/nvim-lspconfig",
-		requires = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"j-hui/fidget.nvim",
-			"folke/neodev.nvim",
-		},
-	})
-	use({
-		'onsails/lspkind.nvim',
-		config = function()
-			require('lspkind')
-		end
-	})
+    -- Autopairs
+    {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup({})
+        end,
+    },
 
-	use {
-		'akinsho/flutter-tools.nvim',
-		requires = {
-			'nvim-lua/plenary.nvim',
-			'stevearc/dressing.nvim', -- optional for vim.ui.select
-		},
-		config = function()
-			require("flutter-tools").setup {} -- use defaults
-		end
-	}
+    -- Bufferline
+    {
+        "akinsho/bufferline.nvim",
+        dependencies = "kyazdani42/nvim-web-devicons",
+        event = "BufWinEnter",
+        config = function()
+            require("config/bufferline")
+        end,
+    },
 
-	use({
-		"jose-elias-alvarez/null-ls.nvim",
-		config = function()
-			require("null-ls").setup()
-		end,
-	})
+    -- Dateibaum
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = "nvim-tree/nvim-web-devicons",
+        config = function()
+            require("config/nvimtree")
+        end,
+    },
 
-	--Copilot
-	use {
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
-		module = "copilot",
-		config = function()
-			require("copilot").setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
-			})
-		end,
-	}
-	use {
-		"zbirenbaum/copilot-cmp",
-		module = "copilot_cmp",
-		after = { "copilot.lua", "nvim-cmp" },
-		config = function()
-			require("copilot_cmp").setup()
-		end
-	}
+    -- LSP
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "j-hui/fidget.nvim",
+            "folke/neodev.nvim",
+        },
+    },
+    {
+        "onsails/lspkind.nvim",
+        config = function()
+            require("lspkind")
+        end,
+    },
 
-	use({
-		"hrsh7th/nvim-cmp",
-		requires = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
-			"tzachar/cmp-fuzzy-buffer",
-			"tzachar/fuzzy.nvim",
-			"petertriho/cmp-git"
-		},
-		config = function()
-			require("config/nvim-cmp")
-		end,
-	})
+    -- Flutter
+    {
+        "akinsho/flutter-tools.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "stevearc/dressing.nvim",
+        },
+        config = function()
+            require("flutter-tools").setup({})
+        end,
+    },
 
-	use {
-		"ThePrimeagen/refactoring.nvim",
-		config = function()
-			require('refactoring').setup({})
-		end
-	}
+    -- Formatter / Linter (none-ls = aktiver Fork von null-ls)
+    {
+        "nvimtools/none-ls.nvim",
+        config = function()
+            require("null-ls").setup()
+        end,
+    },
 
-	use({ "mfussenegger/nvim-jdtls" })
 
-	---------------------------
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-	---------------------------
-end)
+    -- Completion
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
+            "tzachar/cmp-fuzzy-buffer",
+            "tzachar/fuzzy.nvim",
+            "petertriho/cmp-git",
+        },
+        config = function()
+            require("config/nvim-cmp")
+        end,
+    },
+
+    -- Refactoring
+    {
+        "ThePrimeagen/refactoring.nvim",
+        lazy = false,
+        dependencies = {
+            "lewis6991/async.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            require("refactoring").setup({})
+        end,
+    },
+
+    -- Java
+    { "mfussenegger/nvim-jdtls" },
+}

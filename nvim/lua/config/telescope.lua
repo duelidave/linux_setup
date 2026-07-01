@@ -28,4 +28,11 @@ require('telescope').setup({
 })
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('ui-select')
-require('telescope').load_extension('refactoring')
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "VeryLazy",
+    once = true,
+    callback = function()
+        pcall(require('telescope').load_extension, 'refactoring')
+    end,
+})

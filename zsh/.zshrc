@@ -100,3 +100,11 @@ alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
 
 # Created by `pipx` on 2024-03-12 09:37:38
 export PATH="$PATH:/home/david/.local/bin"
+
+# pnpm
+export PNPM_HOME="/home/dmueller/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
